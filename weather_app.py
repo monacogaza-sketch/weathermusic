@@ -141,16 +141,16 @@ st.markdown(
 )
 
 
-
-
-
-
 # 케데헌 테이크다운, 케데헌 골든, 사자보이즈 새로운 링크, 블랙핑크 뚜두뚜두, 듀스 '나를 돌아봐', 브라운아이즈 '벌써일년' 유튜브 영상 나란히 배치 (작은 화면)
 col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1])
 with col1:
     st.markdown("<div style='width:160px; margin-bottom:16px;'>", unsafe_allow_html=True)
     st.markdown(
-        '''<iframe width="160" height="90" src="https://www.youtube.com/embed/7XRcflf_E0c" frameborder="0" allowfullscreen></iframe>''',
+        '''
+        <iframe width="160" height="90" src="https://www.youtube.com/embed/7XRcflf_E0c" frameborder="0" allowfullscreen></iframe>
+        <br>
+        <a href="https://www.youtube.com/watch?v=7XRcflf_E0c" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        ''',
         unsafe_allow_html=True
     )
     st.markdown("</div>", unsafe_allow_html=True)
@@ -158,7 +158,11 @@ with col1:
 with col2:
     st.markdown("<div style='width:160px; margin-bottom:16px;'>", unsafe_allow_html=True)
     st.markdown(
-        '''<iframe width="160" height="90" src="https://www.youtube.com/embed/9_bTl2vvYQg" frameborder="0" allowfullscreen></iframe>''',
+        '''
+        <iframe width="160" height="90" src="https://www.youtube.com/embed/9_bTl2vvYQg" frameborder="0" allowfullscreen></iframe>
+        <br>
+        <a href="https://www.youtube.com/watch?v=9_bTl2vvYQg" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        ''',
         unsafe_allow_html=True
     )
     st.markdown("</div>", unsafe_allow_html=True)
@@ -166,7 +170,11 @@ with col2:
 with col3:
     st.markdown("<div style='width:160px; margin-bottom:16px;'>", unsafe_allow_html=True)
     st.markdown(
-        '''<iframe width="160" height="90" src="https://www.youtube.com/embed/0aTLAHyaQ14" frameborder="0" allowfullscreen></iframe>''',
+        '''
+        <iframe width="160" height="90" src="https://www.youtube.com/embed/0aTLAHyaQ14" frameborder="0" allowfullscreen></iframe>
+        <br>
+        <a href="https://www.youtube.com/watch?v=0aTLAHyaQ14" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        ''',
         unsafe_allow_html=True
     )
     st.markdown("</div>", unsafe_allow_html=True)
@@ -174,7 +182,11 @@ with col3:
 with col4:
     st.markdown("<div style='width:160px; margin-bottom:16px;'>", unsafe_allow_html=True)
     st.markdown(
-        '''<iframe width="160" height="90" src="https://www.youtube.com/embed/MrM8j4JtU9M" frameborder="0" allowfullscreen></iframe>''',
+        '''
+        <iframe width="160" height="90" src="https://www.youtube.com/embed/MrM8j4JtU9M" frameborder="0" allowfullscreen></iframe>
+        <br>
+        <a href="https://www.youtube.com/watch?v=MrM8j4JtU9M" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        ''',
         unsafe_allow_html=True
     )
     st.markdown("</div>", unsafe_allow_html=True)
@@ -182,7 +194,11 @@ with col4:
 with col5:
     st.markdown("<div style='width:160px; margin-bottom:16px;'>", unsafe_allow_html=True)
     st.markdown(
-        '''<iframe width="160" height="90" src="https://www.youtube.com/embed/nhBNnZTrWik" frameborder="0" allowfullscreen></iframe>''',
+        '''
+        <iframe width="160" height="90" src="https://www.youtube.com/embed/nhBNnZTrWik" frameborder="0" allowfullscreen></iframe>
+        <br>
+        <a href="https://www.youtube.com/watch?v=nhBNnZTrWik" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        ''',
         unsafe_allow_html=True
     )
     st.markdown("</div>", unsafe_allow_html=True)
@@ -190,7 +206,11 @@ with col5:
 with col6:
     st.markdown("<div style='width:160px; margin-bottom:16px;'>", unsafe_allow_html=True)
     st.markdown(
-        '''<iframe width="160" height="90" src="https://www.youtube.com/embed/gdj6a0hv0Uk" frameborder="0" allowfullscreen></iframe>''',
+        '''
+        <iframe width="160" height="90" src="https://www.youtube.com/embed/gdj6a0hv0Uk" frameborder="0" allowfullscreen></iframe>
+        <br>
+        <a href="https://www.youtube.com/watch?v=gdj6a0hv0Uk" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        ''',
         unsafe_allow_html=True
     )
     st.markdown("</div>", unsafe_allow_html=True)
@@ -528,7 +548,3 @@ def get_music_from_fma(genre="kpop", limit=10):
         return []
 
 # 날씨에 따른 추천 음악 플레이리스트 (K-pop 곡 추가)
-
-
-
-    # ...existing code...
