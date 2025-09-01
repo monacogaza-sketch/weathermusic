@@ -11,6 +11,8 @@ load_dotenv()
 
 # 환경 변수에서 API 키 가져오기
 API_KEY = os.getenv("API_KEY")
+JAMENDO_CLIENT_ID = os.getenv("JAMENDO_CLIENT_ID")
+FMA_API_KEY = os.getenv("FMA_API_KEY")  # 환경 변수에서 FMA API 키 가져오기
 
 
 # 도시명 변환 및 지원 도시 관리 통합
@@ -102,6 +104,9 @@ st.markdown(
     body { background-color: #1E90FF; } /* 다바색 (Dodger Blue) */
     .stButton>button {background-color: #4f8cff; color: white;}
     .stTextInput>div>input {font-size:16px;}
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    .stDeployButton {visibility: hidden;}
     </style>
     """,
     unsafe_allow_html=True
@@ -139,6 +144,8 @@ st.markdown(
 )
 
 
+
+
 # 케데헌 테이크다운, 케데헌 골든, 사자보이즈 새로운 링크, 블랙핑크 뚜두뚜두, 듀스 '나를 돌아봐', 브라운아이즈 '벌써일년' 유튜브 영상 나란히 배치 (작은 화면)
 col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1])
 with col1:
@@ -147,7 +154,7 @@ with col1:
         '''
         <iframe width="160" height="90" src="https://www.youtube.com/embed/7XRcflf_E0c" frameborder="0" allowfullscreen></iframe>
         <br>
-        <a href="https://www.youtube.com/watch?v=7XRcflf_E0c" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        <a href="https://www.youtube.com/watch?v=7XRcflf_E0c" target="_blank" style="font-size:0.9em;">유튜브에서 듣기</a>
         ''',
         unsafe_allow_html=True
     )
@@ -159,7 +166,7 @@ with col2:
         '''
         <iframe width="160" height="90" src="https://www.youtube.com/embed/9_bTl2vvYQg" frameborder="0" allowfullscreen></iframe>
         <br>
-        <a href="https://www.youtube.com/watch?v=9_bTl2vvYQg" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        <a href="https://www.youtube.com/watch?v=9_bTl2vvYQg" target="_blank" style="font-size:0.9em;">유튜브에서 듣기</a>
         ''',
         unsafe_allow_html=True
     )
@@ -171,7 +178,7 @@ with col3:
         '''
         <iframe width="160" height="90" src="https://www.youtube.com/embed/0aTLAHyaQ14" frameborder="0" allowfullscreen></iframe>
         <br>
-        <a href="https://www.youtube.com/watch?v=0aTLAHyaQ14" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        <a href="https://www.youtube.com/watch?v=0aTLAHyaQ14" target="_blank" style="font-size:0.9em;">유튜브에서 듣기</a>
         ''',
         unsafe_allow_html=True
     )
@@ -183,7 +190,7 @@ with col4:
         '''
         <iframe width="160" height="90" src="https://www.youtube.com/embed/MrM8j4JtU9M" frameborder="0" allowfullscreen></iframe>
         <br>
-        <a href="https://www.youtube.com/watch?v=MrM8j4JtU9M" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        <a href="https://www.youtube.com/watch?v=MrM8j4JtU9M" target="_blank" style="font-size:0.9em;">유튜브에서 듣기</a>
         ''',
         unsafe_allow_html=True
     )
@@ -195,7 +202,7 @@ with col5:
         '''
         <iframe width="160" height="90" src="https://www.youtube.com/embed/nhBNnZTrWik" frameborder="0" allowfullscreen></iframe>
         <br>
-        <a href="https://www.youtube.com/watch?v=nhBNnZTrWik" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        <a href="https://www.youtube.com/watch?v=nhBNnZTrWik" target="_blank" style="font-size:0.9em;">유튜브에서 듣기</a>
         ''',
         unsafe_allow_html=True
     )
@@ -207,7 +214,7 @@ with col6:
         '''
         <iframe width="160" height="90" src="https://www.youtube.com/embed/gdj6a0hv0Uk" frameborder="0" allowfullscreen></iframe>
         <br>
-        <a href="https://www.youtube.com/watch?v=gdj6a0hv0Uk" target="_blank" style="font-size:0.9em;">유튜브에서 보기 (Watch on YouTube)</a>
+        <a href="https://www.youtube.com/watch?v=gdj6a0hv0Uk" target="_blank" style="font-size:0.9em;">유튜브에서 듣기</a>
         ''',
         unsafe_allow_html=True
     )
@@ -533,6 +540,8 @@ debug = False  # 디버깅 모드 활성화 여부
 if debug:
     st.write("Forecast 데이터:", forecast)
 
+st.write("API_KEY:", API_KEY)
+
 def get_music_from_fma(genre="kpop", limit=10):
     url = f"https://freemusicarchive.org/api/get/tracks?api_key={FMA_API_KEY}&limit={limit}&genre_handle={genre}"
     response = requests.get(url)
@@ -546,3 +555,30 @@ def get_music_from_fma(genre="kpop", limit=10):
         return []
 
 # 날씨에 따른 추천 음악 플레이리스트 (K-pop 곡 추가)
+
+st.markdown("<h3>날씨에 따른 추천 음악 (Weather-based Music Recommendations)</h3>", unsafe_allow_html=True)
+
+# 날씨에 따른 음악 장르 매핑
+weather_music_genre = {
+    "맑은 하늘": "chill",
+    "비": "sad",
+    "흐림": "relax",
+    "소나기": "romantic",
+    "천둥번개": "intense",
+    "눈": "winter",
+    "안개": "mysterious"
+}
+
+# 현재 날씨에 따른 장르 선택
+selected_genre = weather_music_genre.get(weather_kor, "kpop")  # 기본값은 "kpop"
+
+# FMA에서 음악 가져오기
+tracks = get_music_from_fma(selected_genre)
+
+# 가져온 음악이 있을 경우 플레이리스트 표시
+if tracks:
+    st.markdown("<b>추천 플레이리스트:</b>", unsafe_allow_html=True)
+    for title, artist, url in tracks:
+        st.markdown(f"- {title} - {artist} ([듣기]({url}))")
+else:
+    st.write("추천 음악을 가져오는 데 실패했습니다.")
