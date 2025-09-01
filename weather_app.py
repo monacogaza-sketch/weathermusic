@@ -11,8 +11,6 @@ load_dotenv()
 
 # 환경 변수에서 API 키 가져오기
 API_KEY = os.getenv("API_KEY")
-JAMENDO_CLIENT_ID = os.getenv("JAMENDO_CLIENT_ID")
-FMA_API_KEY = os.getenv("FMA_API_KEY")  # 환경 변수에서 FMA API 키 가져오기
 
 
 # 도시명 변환 및 지원 도시 관리 통합
