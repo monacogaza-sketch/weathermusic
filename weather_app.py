@@ -11,8 +11,6 @@ load_dotenv()
 
 # 환경 변수에서 API 키 가져오기
 API_KEY = os.getenv("API_KEY")
-JAMENDO_CLIENT_ID = os.getenv("JAMENDO_CLIENT_ID")
-FMA_API_KEY = os.getenv("FMA_API_KEY")  # 환경 변수에서 FMA API 키 가져오기
 
 
 # 도시명 변환 및 지원 도시 관리 통합
@@ -537,48 +535,3 @@ else:
 # 디버깅용 데이터 출력
 debug = False  # 디버깅 모드 활성화 여부
 
-if debug:
-    st.write("Forecast 데이터:", forecast)
-
-st.write("API_KEY:", API_KEY)
-
-def get_music_from_fma(genre="kpop", limit=10):
-    url = f"https://freemusicarchive.org/api/get/tracks?api_key={FMA_API_KEY}&limit={limit}&genre_handle={genre}"
-    response = requests.get(url)
-    st.write("FMA API 응답 상태 코드:", response.status_code)  # 상태 코드 출력
-    st.write("FMA API 응답 내용:", response.text)  # 응답 내용 출력
-    if response.status_code == 200:
-        tracks = response.json().get("dataset", [])
-        return [(track["track_title"], track["artist_name"], track["track_file_url"]) for track in tracks]
-    else:
-        st.error("FMA에서 음악 데이터를 가져오는 데 실패했습니다.")
-        return []
-
-# 날씨에 따른 추천 음악 플레이리스트 (K-pop 곡 추가)
-
-st.markdown("<h3>날씨에 따른 추천 음악 (Weather-based Music Recommendations)</h3>", unsafe_allow_html=True)
-
-# 날씨에 따른 음악 장르 매핑
-weather_music_genre = {
-    "맑은 하늘": "chill",
-    "비": "sad",
-    "흐림": "relax",
-    "소나기": "romantic",
-    "천둥번개": "intense",
-    "눈": "winter",
-    "안개": "mysterious"
-}
-
-# 현재 날씨에 따른 장르 선택
-selected_genre = weather_music_genre.get(weather_kor, "kpop")  # 기본값은 "kpop"
-
-# FMA에서 음악 가져오기
-tracks = get_music_from_fma(selected_genre)
-
-# 가져온 음악이 있을 경우 플레이리스트 표시
-if tracks:
-    st.markdown("<b>추천 플레이리스트:</b>", unsafe_allow_html=True)
-    for title, artist, url in tracks:
-        st.markdown(f"- {title} - {artist} ([듣기]({url}))")
-else:
-    st.write("추천 음악을 가져오는 데 실패했습니다.")
